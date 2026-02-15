@@ -1,27 +1,43 @@
+const stats = [
+  { label: 'Cohort length', value: '8 weeks' },
+  { label: 'Live sessions', value: '2x / week' },
+  { label: 'Code reviews', value: 'Weekly' },
+  { label: 'Seats', value: '< 30 per cohort' }
+];
+
 const curriculum = [
-  { title: 'Beginner', points: ['EVM & accounts', 'Solidity syntax', 'Deploy your first contract'] },
-  { title: 'Intermediate', points: ['Security 101 (CEI, reentrancy)', 'Events/indexing', 'Testing with Foundry/Hardhat'] },
-  { title: 'Advanced', points: ['Proxies & upgrades', 'EIP-712/permit', 'Gas optimization & audits'] }
+  { title: 'Foundations', points: ['EVM model, accounts, gas', 'Solidity syntax & types', 'Storage vs memory vs calldata'] },
+  { title: 'Security & testing', points: ['CEI, reentrancy, guards', 'Events/indexing for off-chain', 'Testing with Foundry/Hardhat, fuzzing basics'] },
+  { title: 'Advanced builds', points: ['Proxies & upgrades (UUPS/transparent)', 'EIP-712/permit & replay safety', 'Gas optimization & audit patterns'] }
 ];
 
 const instructors = [
-  { name: 'Asha Patel', title: 'Protocol Engineer', blurb: 'Ex-L2 core team, led multiple smart contract audits.' },
-  { name: 'Julian Ortiz', title: 'Security Researcher', blurb: 'Foundry/Hardhat specialist; built replay-safe permit flows.' },
+  { name: 'Asha Patel', title: 'Protocol Engineer', blurb: 'Ex-L2 core team; led multiple smart contract audits.' },
+  { name: 'Julian Ortiz', title: 'Security Researcher', blurb: 'Built replay-safe permit flows; Foundry/Hardhat specialist.' },
   { name: 'Mina Chen', title: 'DeFi Engineer', blurb: 'Designed upgradeable systems and gas-optimized vaults.' }
 ];
 
-const outcomes = [
-  'Ship production-ready Solidity contracts',
-  'Pass security reviews (CEI, reentrancy, signature safety)',
-  'Master testing (unit, property, invariants)',
-  'Deploy upgradeable systems safely'
+const projects = [
+  'Token with permit + replay protections (EIP-2612)',
+  'Upgradeable contract with storage-safe migrations',
+  'Lending/vault mini-protocol with indexed events',
+  'Security fixes: reentrancy, auth, and upgrade gotchas'
 ];
 
 const faqs = [
-  { q: 'Who is this for?', a: 'Builders who know basic JS and want to become Solidity-proficient.' },
-  { q: 'How long is it?', a: '8 weeks part-time, with optional advanced extensions.' },
-  { q: 'Do I need a wallet?', a: 'We guide setup; no mainnet funds required. Testnets only.' },
-  { q: 'Is there career support?', a: 'Yes, portfolio review, mock interviews, and audit-readiness coaching.' }
+  { q: 'Who is this for?', a: 'Builders with basic JS who want production-grade Solidity skills.' },
+  { q: 'Do I need a wallet?', a: 'We use testnets; no mainnet funds required.' },
+  { q: 'How are sessions run?', a: 'Live workshops + async support + weekly code reviews.' },
+  { q: 'Is there career support?', a: 'Portfolio review, mock interviews, and audit-readiness coaching.' }
+];
+
+const trust = ['Security-first curriculum', 'Real protocol patterns', 'Small cohorts, high touch'];
+
+const timeline = [
+  { title: 'Weeks 1-2', body: 'EVM, Solidity syntax, storage, deploying your first contracts.' },
+  { title: 'Weeks 3-4', body: 'Security 101, CEI, reentrancy, events/indexing, testing.' },
+  { title: 'Weeks 5-6', body: 'Upgrades (UUPS/transparent), EIP-712/permit, replay safety.' },
+  { title: 'Weeks 7-8', body: 'Gas optimization, audits mindset, capstone reviews.' }
 ];
 
 export default function Page() {
@@ -43,26 +59,35 @@ export default function Page() {
           <div>
             <h1>From zero to production-grade Solidity engineer.</h1>
             <p>
-              A focused 8-week program covering EVM fundamentals, secure smart contracts, testing, and upgrades. Built by
-              engineers who ship and audit real protocols.
+              A focused 8-week cohort with live workshops, reviews, and security-first builds. Learn the patterns used by
+              top protocols—and ship with confidence.
             </p>
             <div className="row" style={{ gap: '10px', flexWrap: 'wrap' }}>
               <button className="button">Apply now</button>
               <button className="button ghost">Download syllabus</button>
             </div>
             <div className="badges" style={{ marginTop: '12px' }}>
-              <span className="badge">Live workshops</span>
-              <span className="badge">Code reviews</span>
-              <span className="badge">Security-first</span>
+              {trust.map((t) => (
+                <span className="badge" key={t}>{t}</span>
+              ))}
             </div>
           </div>
           <div className="callout">
             <strong>Outcomes</strong>
             <ul>
-              {outcomes.map((o) => (
-                <li key={o}>{o}</li>
-              ))}
+              <li>Ship production-ready contracts with tests</li>
+              <li>Pass security reviews (CEI, reentrancy, signatures)</li>
+              <li>Deploy upgradeable systems safely</li>
+              <li>Portfolio-ready capstone</li>
             </ul>
+            <div className="ribbon" style={{ marginTop: '10px' }}>
+              {stats.map((s) => (
+                <div className="stat" key={s.label}>
+                  <strong>{s.value}</strong>
+                  <p className="muted" style={{ margin: 0 }}>{s.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </header>
@@ -70,8 +95,8 @@ export default function Page() {
       <main>
         <section id="curriculum" className="section">
           <div className="container">
-            <h2>Curriculum</h2>
-            <p>Three tracks, one goal: make you production-ready.</p>
+            <h2>Curriculum built like an audit checklist.</h2>
+            <p>Every module ties back to production patterns you see in serious protocols.</p>
             <div className="grid cards">
               {curriculum.map((c) => (
                 <div className="card" key={c.title}>
@@ -87,7 +112,21 @@ export default function Page() {
           </div>
         </section>
 
-        <section id="instructors" className="section" style={{ background: 'rgba(15,23,42,0.6)', borderTop: '1px solid #0f172a', borderBottom: '1px solid #0f172a' }}>
+        <section className="section" style={{ background: 'rgba(15,23,42,0.6)', borderTop: '1px solid #0f172a', borderBottom: '1px solid #0f172a' }}>
+          <div className="container">
+            <h2>What you build</h2>
+            <p>Guided builds inspired by real audits and DeFi stacks.</p>
+            <div className="grid cards" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
+              {projects.map((p) => (
+                <div className="card" key={p}>
+                  <p>{p}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="instructors" className="section">
           <div className="container">
             <h2>Meet your instructors</h2>
             <p>Protocol engineers and security researchers with real-world shipping experience.</p>
@@ -103,10 +142,25 @@ export default function Page() {
           </div>
         </section>
 
+        <section className="section" id="timeline" style={{ borderTop: '1px solid #0f172a' }}>
+          <div className="container">
+            <h2>Cohort flow</h2>
+            <p>Clear pacing from fundamentals to audit-ready.</p>
+            <div className="timeline">
+              {timeline.map((t) => (
+                <div className="card" key={t.title}>
+                  <h3>{t.title}</h3>
+                  <p>{t.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="section" id="apply">
           <div className="container">
             <h2>Apply & pricing</h2>
-            <p>Limited cohort size for hands-on reviews.</p>
+            <p>Small cohorts for hands-on reviews. Pick the track that fits.</p>
             <div className="grid cards" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
               <div className="card">
                 <h3>Cohort</h3>
@@ -143,9 +197,7 @@ export default function Page() {
       </main>
 
       <footer>
-        <div className="container">
-          Ready to build in Solidity? Join the next cohort.
-        </div>
+        <div className="container">Ready to build in Solidity? Join the next cohort.</div>
       </footer>
     </>
   );
